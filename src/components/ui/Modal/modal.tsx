@@ -16,7 +16,9 @@ export const Modal = ({
       <div className={styles.modalContainer}>
         <dialog className={styles.modal} open={true}>
           {children}
-          <Button handleClick={onCancel} label="Close" />
+          <div className={styles.cancelButtonContainer}>
+            <Button handleClick={onCancel} label="Close" />
+          </div>
         </dialog>
       </div>
     )
