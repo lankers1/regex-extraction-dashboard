@@ -10,7 +10,7 @@ import styles from "./styles.module.css";
 export const EditSection = () => {
   const [text, setText] = useState("");
   const [error, setError] = useState(false);
-  const { addExtracts, regexExtracts } = useRegexExtractsStore();
+  const { addExtract, deleteExtract, regexExtracts } = useRegexExtractsStore();
 
   function addNewExtract(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
@@ -22,60 +22,64 @@ export const EditSection = () => {
       setError(true);
     }
     if (regexExtract) {
-      addExtracts(regexExtract);
+      addExtract(regexExtract);
       setText("");
     }
   }
 
   return (
-    <div className={styles.container}>
-      <form className={styles.form}>
-        <label htmlFor="story">Add a new regex extract</label>
-        <textarea
-          onChange={(event) => {
-            setText(event.target.value);
-          }}
-          className={styles.textArea}
-          value={text}
-          id="story"
-          name="story"
-          rows={5}
-        />
-        <button onClick={addNewExtract}>Add regex extract</button>
-        {error && (
-          <p className={styles.errorText}>Error: Invalid regular expression</p>
-        )}
-      </form>
-      <div className={styles.listContainer}>
-        <h4>Regex extracts</h4>
-        <List>
-          {regexExtracts.map((extract, index) => (
-            <ListItem key={extract + index}>
-              <div className={styles.listItemContent}>
-                <p className={styles.listItemText}>{extract}</p>
-                <div className={styles.listItemButtonContainer}>
-                  <button>
-                    <Image
-                      src="/edit.svg"
-                      alt="Edit icon"
-                      width={20}
-                      height={20}
-                    />
-                  </button>
-                  <button>
-                    <Image
-                      src="/bin.svg"
-                      alt="Edit icon"
-                      width={20}
-                      height={20}
-                    />
-                  </button>
+    <>
+      <div className={styles.container}>
+        <form className={styles.form}>
+          <label htmlFor="story">Add a new regex extract</label>
+          <textarea
+            onChange={(event) => {
+              setText(event.target.value);
+            }}
+            className={styles.textArea}
+            value={text}
+            id="story"
+            name="story"
+            rows={5}
+          />
+          <button onClick={addNewExtract}>Add regex extract</button>
+          {error && (
+            <p className={styles.errorText}>
+              Error: Invalid regular expression
+            </p>
+          )}
+        </form>
+        <div className={styles.listContainer}>
+          <h4>Regex extracts</h4>
+          <List>
+            {regexExtracts.map((extract, index) => (
+              <ListItem key={extract + index}>
+                <div className={styles.listItemContent}>
+                  <p className={styles.listItemText}>{extract}</p>
+                  <div className={styles.listItemButtonContainer}>
+                    <button>
+                      <Image
+                        src="/edit.svg"
+                        alt="Edit icon"
+                        width={20}
+                        height={20}
+                      />
+                    </button>
+                    <button onClick={() => deleteExtract(index)}>
+                      <Image
+                        src="/bin.svg"
+                        alt="Edit icon"
+                        width={20}
+                        height={20}
+                      />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </ListItem>
-          ))}
-        </List>
+              </ListItem>
+            ))}
+          </List>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
