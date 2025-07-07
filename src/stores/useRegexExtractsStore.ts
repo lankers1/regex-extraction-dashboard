@@ -3,16 +3,16 @@ import { persist } from "zustand/middleware";
 
 type RegexExtractsStore = {
   regexExtracts: string[];
-  addExtract: (extract: RegExp) => void;
+  addExtract: (extract: string) => void;
   deleteExtract: (index: number) => void;
-  editExtract: (index: number, editedExtract: RegExp) => void;
+  editExtract: (index: number, editedExtract: string) => void;
 };
 
 export const useRegexExtractsStore = create<RegexExtractsStore>()(
   persist(
     (set, get) => ({
       regexExtracts: [],
-      addExtract: (extract: RegExp) => {
+      addExtract: (extract: string) => {
         set({ regexExtracts: [...get().regexExtracts, extract.toString()] });
       },
       deleteExtract: (index: number) => {
@@ -22,7 +22,7 @@ export const useRegexExtractsStore = create<RegexExtractsStore>()(
           ),
         });
       },
-      editExtract: (index: number, editedExtract: RegExp) => {
+      editExtract: (index: number, editedExtract: string) => {
         set({
           regexExtracts: get().regexExtracts?.map((extract, extractIndex) => {
             if (extractIndex === index) return editedExtract.toString();

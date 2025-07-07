@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/Button/button";
 
 interface RegexExtractFormProps {
   disabled?: boolean;
-  handleSubmit: (text: RegExp) => void;
+  handleSubmit: (text: string) => void;
   label: string;
   submitButtonLabel: string;
   initialValue?: string;
@@ -35,7 +35,7 @@ export const RegexExtractForm = ({
       setError("Error: Invalid regular expression");
     }
     if (regexExtract) {
-      handleSubmit(regexExtract);
+      handleSubmit(text);
       setText("");
     }
   }

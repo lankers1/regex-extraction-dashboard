@@ -60,10 +60,7 @@ export const EditSection = () => {
         onCancel={() => setEditExtractIndex(null)}
       >
         <RegexExtractForm
-          initialValue={regexExtracts[editExtractIndex as number]?.slice(
-            1,
-            regexExtracts[editExtractIndex as number]?.length - 1
-          )}
+          initialValue={regexExtracts[editExtractIndex as number]}
           label="Edit this regex extract"
           submitButtonLabel="Update regex extract"
           handleSubmit={(regexExtract) => {
