@@ -6,49 +6,23 @@ import { useRegexExtractsStore } from "@/stores/useRegexExtractsStore";
 import { List } from "@/components/ui/List";
 import { ListItem } from "@/components/ui/ListItem";
 import styles from "./styles.module.css";
+import { Modal } from "@/components/ui/Modal";
+import { RegexExtractForm } from "../RegexExtractForm";
 
 export const EditSection = () => {
-  const [text, setText] = useState("");
-  const [error, setError] = useState(false);
-  const { addExtract, deleteExtract, regexExtracts } = useRegexExtractsStore();
-
-  function addNewExtract(e: React.MouseEvent<HTMLButtonElement>) {
-    e.preventDefault();
-    let regexExtract;
-    try {
-      regexExtract = new RegExp(text);
-    } catch (e) {
-      console.error("Invalid regex pattern:", e);
-      setError(true);
-    }
-    if (regexExtract) {
-      addExtract(regexExtract);
-      setText("");
-    }
-  }
+  const [editExtractIndex, setEditExtractIndex] = useState<number | null>(null);
+  const { addExtract, deleteExtract, editExtract, regexExtracts } =
+    useRegexExtractsStore();
 
   return (
     <>
       <div className={styles.container}>
-        <form className={styles.form}>
-          <label htmlFor="story">Add a new regex extract</label>
-          <textarea
-            onChange={(event) => {
-              setText(event.target.value);
-            }}
-            className={styles.textArea}
-            value={text}
-            id="story"
-            name="story"
-            rows={5}
-          />
-          <button onClick={addNewExtract}>Add regex extract</button>
-          {error && (
-            <p className={styles.errorText}>
-              Error: Invalid regular expression
-            </p>
-          )}
-        </form>
+        <RegexExtractForm
+          label="Add a new regex extract"
+          submitButtonLabel="Add regex extract"
+          handleSubmit={addExtract}
+          disabled={editExtractIndex !== null}
+        />
         <div className={styles.listContainer}>
           <h4>Regex extracts</h4>
           <List>
@@ -57,7 +31,11 @@ export const EditSection = () => {
                 <div className={styles.listItemContent}>
                   <p className={styles.listItemText}>{extract}</p>
                   <div className={styles.listItemButtonContainer}>
-                    <button>
+                    <button
+                      onClick={() => {
+                        setEditExtractIndex(index);
+                      }}
+                    >
                       <Image
                         src="/edit.svg"
                         alt="Edit icon"
@@ -80,6 +58,27 @@ export const EditSection = () => {
           </List>
         </div>
       </div>
+      <Modal
+        isOpen={editExtractIndex !== null}
+        onCancel={() => setEditExtractIndex(null)}
+      >
+        <RegexExtractForm
+          initialValue={regexExtracts[editExtractIndex as number]?.slice(
+            1,
+            regexExtracts[editExtractIndex as number]?.length - 1
+          )}
+          label="Edit this regex extract"
+          submitButtonLabel="Update regex extract"
+          handleSubmit={(regexExtract) => {
+            {
+              if (editExtractIndex !== null) {
+                editExtract(editExtractIndex, regexExtract);
+                setEditExtractIndex(null);
+              }
+            }
+          }}
+        />
+      </Modal>
     </>
   );
 };
