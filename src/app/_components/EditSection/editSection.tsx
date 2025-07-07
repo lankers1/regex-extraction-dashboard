@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from "react";
 import Image from "next/image";
 import { useRegexExtractsStore } from "@/stores/useRegexExtractsStore";
@@ -8,11 +7,13 @@ import { ListItem } from "@/components/ui/ListItem";
 import styles from "./styles.module.css";
 import { Modal } from "@/components/ui/Modal";
 import { RegexExtractForm } from "../RegexExtractForm";
+import { useUpdateExtractedTerms } from "@/hooks/useUpdateExtractedTerms";
 
 export const EditSection = () => {
   const [editExtractIndex, setEditExtractIndex] = useState<number | null>(null);
   const { addExtract, deleteExtract, editExtract, regexExtracts } =
     useRegexExtractsStore();
+  useUpdateExtractedTerms(regexExtracts);
 
   return (
     <>
@@ -20,7 +21,9 @@ export const EditSection = () => {
         <RegexExtractForm
           label="Add a new regex extract"
           submitButtonLabel="Add regex extract"
-          handleSubmit={addExtract}
+          handleSubmit={(extract: RegExp) => {
+            addExtract(extract);
+          }}
           disabled={editExtractIndex !== null}
         />
         <div className={styles.listContainer}>
@@ -43,7 +46,11 @@ export const EditSection = () => {
                         height={20}
                       />
                     </button>
-                    <button onClick={() => deleteExtract(index)}>
+                    <button
+                      onClick={() => {
+                        deleteExtract(index);
+                      }}
+                    >
                       <Image
                         src="/bin.svg"
                         alt="Edit icon"

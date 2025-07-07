@@ -6,15 +6,16 @@ import { ListItem } from "@/components/ui/ListItem";
 import { useRegexExtractsStore } from "@/stores/useRegexExtractsStore";
 import { useTextContentStore } from "@/stores/useTextContentStore";
 import styles from "./styles.module.css";
+import { matchTerms } from "@/utils/matchTerms";
+import { useUpdateExtractedTerms } from "@/hooks/useUpdateExtractedTerms";
 
 export const ApprovalSection = () => {
   const [selectedRegex, setSelectedRegex] = useState("");
   const { regexExtracts } = useRegexExtractsStore();
   const { textContent, generateNewContent, approveTextContent } =
     useTextContentStore((state) => state);
-  const found = textContent.match(
-    RegExp(selectedRegex.slice(1, selectedRegex.length - 1), "g")
-  );
+  const terms = matchTerms(selectedRegex, textContent);
+  useUpdateExtractedTerms(regexExtracts);
 
   return (
     <div className={styles.container}>
@@ -28,7 +29,7 @@ export const ApprovalSection = () => {
         <h4>Matches</h4>
         {selectedRegex && (
           <List>
-            {found?.map((extract, index) => (
+            {terms?.map((extract, index) => (
               <ListItem key={extract + index}>{extract}</ListItem>
             ))}
           </List>
