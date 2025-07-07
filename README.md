@@ -9,10 +9,10 @@
 4. Run `yarn dev`, navigate to the localhost url shown in the terminal.
 
 ### Architecture
-- I decided to use the app router directory structure due to the performance benefits from using React server components (RSCs).
-- For global state I opted to use Zustand, I chose Zustand over Redux as the explicit sepraration of each store lends itself better to a Domain driven codebase. The API is also really developer friendly and easy to setup.
-- I went with CSS modules for the styling system. This was mainly due to the fact the css modules fit in so well with React's component based design. Coupling the styles to reusable components means we can keep our codebase extremely lean when it comes to both styles and react components.
-- Lastly, as far as client components are concerned I tried to reduce my reliance on them and there are only a few place I used these. As mentioned before, this is so we can leverage the performance improvements of RSCs through the reducation of our client side JS bundle.
+- I decided to adopt the App Router directory structure to leverage the performance benefits of React Server Components (RSCs). This approach aligns with modern best practices in Next.js and enables more efficient server-side rendering with reduced client-side JavaScript.
+- I chose Zustand for global state management over Redux because its approach to explicitly separated stores aligns better with a domain-driven codebase structure. Zustand’s minimal and intuitive API also makes it highly developer-friendly, allowing for faster onboarding and reduced boilerplate compared to more complex solutions like Redux.
+- I opted to use CSS Modules for styling, primarily because they integrate seamlessly with React's component-based architecture. By tightly coupling styles with their respective reusable components, we’re able to keep the codebase clean and modular. This approach also helps reduce global style bloat and ensures our styles remain scoped, which contributes to a leaner and more maintainable codebase overall.
+- Lastly, regarding client components, I made a conscious effort to minimize their usage. They are only employed in a few specific areas where necessary. This approach allows us to take full advantage of the performance benefits offered by React Server Components (RSCs), particularly by reducing our client-side JavaScript bundle size.
 
 ### Assumptions
 - The Edit Mode was a section to view/add/edit/delete regex patterns.
