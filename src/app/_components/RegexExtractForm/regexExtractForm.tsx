@@ -22,18 +22,21 @@ export const RegexExtractForm = ({
 
   return (
     <form className={styles.form}>
-      <label htmlFor="story">{label}</label>
-      <textarea
-        disabled={disabled}
-        onChange={(event) => {
-          setText(event.target.value);
-        }}
-        className={styles.textArea}
-        value={text}
-        id="story"
-        name="story"
-        rows={5}
-      />
+      <label htmlFor="pattern-input">{label}</label>
+      <div className={styles.inputWrapper}>
+        <p>/</p>
+        <input
+          disabled={disabled}
+          onChange={(event) => {
+            setText(event.target.value);
+          }}
+          className={styles.textArea}
+          value={text}
+          id="pattern-input"
+          name="pattern-input"
+        />
+        <p>/gi</p>
+      </div>
       <button
         onClick={(e) => {
           e.preventDefault();
