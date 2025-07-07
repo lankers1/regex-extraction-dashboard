@@ -8,6 +8,7 @@ import styles from "./styles.module.css";
 import { Modal } from "@/components/ui/Modal";
 import { RegexExtractForm } from "../RegexExtractForm";
 import { useUpdateExtractedTerms } from "@/hooks/useUpdateExtractedTerms";
+import { IconButton } from "@/components/ui/IconButton";
 
 export const EditSection = () => {
   const [editExtractIndex, setEditExtractIndex] = useState<number | null>(null);
@@ -34,30 +35,20 @@ export const EditSection = () => {
                 <div className={styles.listItemContent}>
                   <p className={styles.listItemText}>{extract}</p>
                   <div className={styles.listItemButtonContainer}>
-                    <button
-                      onClick={() => {
+                    <IconButton
+                      iconSrc="/edit.svg"
+                      altTxt="Edit icon"
+                      handleClick={() => {
                         setEditExtractIndex(index);
                       }}
-                    >
-                      <Image
-                        src="/edit.svg"
-                        alt="Edit icon"
-                        width={20}
-                        height={20}
-                      />
-                    </button>
-                    <button
-                      onClick={() => {
+                    />
+                    <IconButton
+                      iconSrc="/bin.svg"
+                      altTxt="Delete icon"
+                      handleClick={() => {
                         deleteExtract(index);
                       }}
-                    >
-                      <Image
-                        src="/bin.svg"
-                        alt="Edit icon"
-                        width={20}
-                        height={20}
-                      />
-                    </button>
+                    />
                   </div>
                 </div>
               </ListItem>
