@@ -1,0 +1,22 @@
+
+
+.tabs {
+  display: flex;
+
+  .tab {
+    flex: 1;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid black;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+
+  .tab:not(:first-child) {
+    border-left: 1px solid black;
+  }
+
+  .tab:hover {
+    background-color: lightgrey;
+  }
+}
