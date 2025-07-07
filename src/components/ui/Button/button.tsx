@@ -11,7 +11,6 @@ export const Button = ({
   label,
   variant = "default",
 }: ButtonProps) => {
-  console.log(variant);
   return (
     <button
       className={`${styles.button} ${styles[variant]}`}
