@@ -1,6 +1,7 @@
 "use client";
-import { useTextContentStore } from "@/stores/useTextContentStore";
 import { useEffect } from "react";
+import { useTextContentStore } from "@/stores/useTextContentStore";
+import styles from "./styles.module.css";
 
 export const TextContent = () => {
   const { textContent, generateNewContent } = useTextContentStore(
@@ -16,8 +17,7 @@ export const TextContent = () => {
   }, []);
 
   return (
-    <div style={{ padding: "4rem 1rem", flex: 1 }}>
-      <h1>Text Content Component</h1>
+    <div className={styles.container}>
       <p>{textContent}</p>
     </div>
   );
