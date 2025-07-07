@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import Image from "next/image";
 import { useRegexExtractsStore } from "@/stores/useRegexExtractsStore";
 import { List } from "@/components/ui/List";
 import { ListItem } from "@/components/ui/ListItem";

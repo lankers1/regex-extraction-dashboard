@@ -11,3 +11,10 @@
   background-color: white;
 }
 
+.error {
+  background-color: var(--error-color);
+}
+
+.success {
+  background-color: var(--success-color);
+}

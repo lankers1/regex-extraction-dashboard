@@ -1,5 +1,6 @@
 :root {
-  --error-text: #ED4337;
+  --error-color: #ED4337;
+  --success-color: #00e676
 }
 
 html,

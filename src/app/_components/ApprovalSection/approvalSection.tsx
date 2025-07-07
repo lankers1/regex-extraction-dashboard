@@ -42,6 +42,7 @@ export const ApprovalSection = () => {
           generateNewContent();
         }}
         label="Approve"
+        variant="success"
       />
     </div>
   );
