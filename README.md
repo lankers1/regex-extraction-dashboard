@@ -16,6 +16,6 @@
 
 ### Assumptions
 - The Edit Mode was a section to view/add/edit/delete regex patterns.
-- The Approval Model was a section to view the regex patterns in a dropdown and based on the matching terms displayed either approve or reject the text blocks.
+- The Approval Mode was a section to view the regex patterns in a dropdown and based on the matching terms displayed either approve or reject the text blocks.
 - Store all data in local storage as mentioned.
-- Design and testing of the app wasn't a priority.
+- Design and testing of the app wasn't a part of the requirements so I did not prioritise either.
