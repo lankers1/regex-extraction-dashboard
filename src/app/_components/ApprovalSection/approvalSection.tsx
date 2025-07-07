@@ -10,7 +10,8 @@ import styles from "./styles.module.css";
 export const ApprovalSection = () => {
   const [selectedRegex, setSelectedRegex] = useState("");
   const { regexExtracts } = useRegexExtractsStore();
-  const { textContent } = useTextContentStore((state) => state);
+  const { textContent, generateNewContent, approveTextContent } =
+    useTextContentStore((state) => state);
   const found = textContent.match(
     RegExp(selectedRegex.slice(1, selectedRegex.length - 1), "g")
   );
@@ -33,7 +34,14 @@ export const ApprovalSection = () => {
           </List>
         )}
       </div>
-      <button>approve</button>
+      <button
+        onClick={() => {
+          approveTextContent(textContent);
+          generateNewContent();
+        }}
+      >
+        approve
+      </button>
     </div>
   );
 };
