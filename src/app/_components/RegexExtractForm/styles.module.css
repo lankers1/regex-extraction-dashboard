@@ -1,0 +1,13 @@
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .textArea {
+      resize: vertical;
+    }
+  }
+
+  .errorText {
+    color: var(--error-text);
+  }
