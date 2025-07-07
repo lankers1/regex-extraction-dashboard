@@ -19,16 +19,20 @@ export const RegexExtractForm = ({
   submitButtonLabel,
 }: RegexExtractFormProps) => {
   const [text, setText] = useState(initialValue);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
 
   function onSubmit(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
+    if (!text) {
+      setError("Please enter a regex pattern");
+      return;
+    }
     let regexExtract;
     try {
       regexExtract = new RegExp(text);
     } catch (e) {
       console.error("Invalid regex pattern:", e);
-      setError(true);
+      setError("Error: Invalid regular expression");
     }
     if (regexExtract) {
       handleSubmit(regexExtract);
@@ -54,9 +58,7 @@ export const RegexExtractForm = ({
         <p>/gi</p>
       </div>
       <Button handleClick={onSubmit} label={submitButtonLabel} />
-      {error && (
-        <p className={styles.errorText}>Error: Invalid regular expression</p>
-      )}
+      {error && <p className={styles.errorText}>{error}</p>}
     </form>
   );
 };
