@@ -1,4 +1,8 @@
 
+.tabContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
 .tabs {
   display: flex;
@@ -19,4 +23,10 @@
   .tab:hover {
     background-color: lightgrey;
   }
+}
+
+.tabPanel {
+  padding: 2rem 1rem;
+  flex: 1;
+}
 }

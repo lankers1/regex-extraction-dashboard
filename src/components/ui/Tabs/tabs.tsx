@@ -10,7 +10,7 @@ interface TabsProps {
 export const Tabs = ({ buttonLabels, content }: TabsProps) => {
   const [selectedTab, setSelectedTab] = useState(0);
   return (
-    <div>
+    <div className={styles.tabContainer}>
       <div role="tablist" className={styles.tabs}>
         {buttonLabels.map((label, index) => (
           <button
@@ -22,7 +22,9 @@ export const Tabs = ({ buttonLabels, content }: TabsProps) => {
           </button>
         ))}
       </div>
-      <div role="tabpanel">{content[selectedTab]}</div>
+      <div className={styles.tabPanel} role="tabpanel">
+        {content[selectedTab]}
+      </div>
     </div>
   );
 };
