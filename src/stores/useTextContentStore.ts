@@ -5,7 +5,9 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 export type TextContentStore = {
   textContent: string;
+  approvedTextContent: string[];
   generateNewContent: () => void;
+  approveTextContent: (approvedTextContent: string) => void;
 };
 
 const lorem = new LoremIpsum({
@@ -28,10 +30,14 @@ export const useTextContentStore = (
 ) => {
   const textContentStore = create<TextContentStore>()(
     persist(
-      (set) => ({
+      (set, get) => ({
         textContent: "",
+        approvedTextContent: [],
         generateNewContent: () => {
           set({ textContent: generateTextContent() });
+        },
+        approveTextContent: (approvedContent: string) => {
+          set({ approvedTextContent: [...get().textContent, approvedContent] });
         },
       }),
       {
