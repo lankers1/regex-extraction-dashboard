@@ -44,6 +44,13 @@ export const ApprovalSection = () => {
         label="Approve"
         variant="success"
       />
+      <Button
+        handleClick={() => {
+          generateNewContent();
+        }}
+        label="Reject"
+        variant="error"
+      />
     </div>
   );
 };
