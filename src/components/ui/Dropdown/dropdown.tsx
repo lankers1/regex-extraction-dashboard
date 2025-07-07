@@ -14,9 +14,9 @@ export const Dropdown = ({ items, name, onSelect, label }: DropdownProps) => {
         name={name}
         id={`${name}-select`}
       >
-        <option value="">Please choose an option</option>
-        {items.map((item) => (
-          <option key={item} value={item}>
+        <option value="">Please choose a regex option</option>
+        {items.map((item, index) => (
+          <option key={item + index} value={item}>
             {item}
           </option>
         ))}
