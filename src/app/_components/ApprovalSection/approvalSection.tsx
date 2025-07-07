@@ -8,6 +8,7 @@ import { useTextContentStore } from "@/stores/useTextContentStore";
 import styles from "./styles.module.css";
 import { matchTerms } from "@/utils/matchTerms";
 import { useUpdateExtractedTerms } from "@/hooks/useUpdateExtractedTerms";
+import { Button } from "@/components/ui/Button/button";
 
 export const ApprovalSection = () => {
   const [selectedRegex, setSelectedRegex] = useState("");
@@ -35,14 +36,13 @@ export const ApprovalSection = () => {
           </List>
         )}
       </div>
-      <button
-        onClick={() => {
+      <Button
+        handleClick={() => {
           approveTextContent(textContent);
           generateNewContent();
         }}
-      >
-        approve
-      </button>
+        label="Approve"
+      />
     </div>
   );
 };

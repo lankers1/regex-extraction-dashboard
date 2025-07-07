@@ -1,3 +1,4 @@
+import { Button } from "../Button/button";
 import styles from "./styles.module.css";
 
 interface Props {
@@ -15,7 +16,7 @@ export const Modal = ({
       <div className={styles.modalContainer}>
         <dialog className={styles.modal} open={true}>
           {children}
-          <button onClick={onCancel}>close</button>
+          <Button handleClick={onCancel} label="Close" />
         </dialog>
       </div>
     )
