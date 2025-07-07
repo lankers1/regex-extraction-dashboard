@@ -23,7 +23,7 @@
   .listContainer {
     display: flex;
     flex: 1 1 0;
-    overflow-y: scroll;
+    overflow-y: auto;
     flex-direction: column;
 
     .listItemContent {
