@@ -21,7 +21,7 @@ export const EditSection = () => {
         <RegexExtractForm
           label="Add a new regex extract"
           submitButtonLabel="Add regex extract"
-          handleSubmit={(extract: RegExp) => {
+          handleSubmit={(extract: string) => {
             addExtract(extract);
           }}
           disabled={editExtractIndex !== null}
