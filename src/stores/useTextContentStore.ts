@@ -1,5 +1,4 @@
 import { LoremIpsum } from "lorem-ipsum";
-import { useEffect } from "react";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
@@ -25,35 +24,24 @@ function generateTextContent() {
   return lorem.generateSentences(5);
 }
 
-export const useTextContentStore = (
-  selector: (state: TextContentStore) => TextContentStore
-) => {
-  const textContentStore = create<TextContentStore>()(
-    persist(
-      (set, get) => ({
-        textContent: "",
-        approvedTextContent: [],
-        generateNewContent: () => {
-          set({ textContent: generateTextContent() });
-        },
-        approveTextContent: (approvedContent: string) => {
-          set({ approvedTextContent: [...get().textContent, approvedContent] });
-        },
-      }),
-      {
-        storage: createJSONStorage(() => localStorage),
-        name: "text-content-storage",
-      }
-    )
-  );
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (!localStorage?.getItem("text-content-storage")) {
-        textContentStore().generateNewContent();
-      }
+export const useTextContentStore = create<TextContentStore>()(
+  persist(
+    (set, get) => ({
+      textContent: "",
+      approvedTextContent: [],
+      generateNewContent: () => {
+        const textContent = generateTextContent();
+        set({ textContent });
+      },
+      approveTextContent: (approvedContent: string) => {
+        set({
+          approvedTextContent: [...get().approvedTextContent, approvedContent],
+        });
+      },
+    }),
+    {
+      storage: createJSONStorage(() => localStorage),
+      name: "text-content-storage",
     }
-  }, []);
-
-  return textContentStore(selector);
-};
+  )
+);
