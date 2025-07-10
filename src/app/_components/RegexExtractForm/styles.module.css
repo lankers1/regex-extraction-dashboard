@@ -1,0 +1,14 @@
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .inputWrapper {
+      display: flex;
+      gap: 0.15rem;
+    }
+  }
+
+  .errorText {
+    color: var(--error-color);
+  }

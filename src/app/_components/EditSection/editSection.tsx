@@ -1,0 +1,78 @@
+"use client";
+import { useState } from "react";
+import { useRegexExtractsStore } from "@/stores/useRegexExtractsStore";
+import { List } from "@/components/ui/List";
+import { ListItem } from "@/components/ui/ListItem";
+import styles from "./styles.module.css";
+import { Modal } from "@/components/ui/Modal";
+import { RegexExtractForm } from "../RegexExtractForm";
+import { useUpdateExtractedTerms } from "@/hooks/useUpdateExtractedTerms";
+import { IconButton } from "@/components/ui/IconButton";
+
+export const EditSection = () => {
+  const [editExtractIndex, setEditExtractIndex] = useState<number | null>(null);
+  const { addExtract, deleteExtract, editExtract, regexExtracts } =
+    useRegexExtractsStore();
+  useUpdateExtractedTerms(regexExtracts);
+
+  return (
+    <>
+      <div className={styles.container}>
+        <RegexExtractForm
+          label="Add a new regex extract"
+          submitButtonLabel="Add regex extract"
+          handleSubmit={(extract: string) => {
+            addExtract(extract);
+          }}
+          disabled={editExtractIndex !== null}
+        />
+        <div className={styles.listContainer}>
+          <h4>Regex extracts</h4>
+          <List>
+            {regexExtracts.map((extract, index) => (
+              <ListItem key={extract + index}>
+                <div className={styles.listItemContent}>
+                  <p className={styles.listItemText}>{extract}</p>
+                  <div className={styles.listItemButtonContainer}>
+                    <IconButton
+                      iconSrc="/edit.svg"
+                      altTxt="Edit icon"
+                      handleClick={() => {
+                        setEditExtractIndex(index);
+                      }}
+                    />
+                    <IconButton
+                      iconSrc="/bin.svg"
+                      altTxt="Delete icon"
+                      handleClick={() => {
+                        deleteExtract(index);
+                      }}
+                    />
+                  </div>
+                </div>
+              </ListItem>
+            ))}
+          </List>
+        </div>
+      </div>
+      <Modal
+        isOpen={editExtractIndex !== null}
+        onCancel={() => setEditExtractIndex(null)}
+      >
+        <RegexExtractForm
+          initialValue={regexExtracts[editExtractIndex as number]}
+          label="Edit this regex extract"
+          submitButtonLabel="Update regex extract"
+          handleSubmit={(regexExtract) => {
+            {
+              if (editExtractIndex !== null) {
+                editExtract(editExtractIndex, regexExtract);
+                setEditExtractIndex(null);
+              }
+            }
+          }}
+        />
+      </Modal>
+    </>
+  );
+};

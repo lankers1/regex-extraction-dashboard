@@ -1,0 +1,11 @@
+.iconButton {
+  border-radius: 50%;
+   cursor: pointer;
+  padding: 0.4rem;
+  border: 1px solid black;
+  display: flex;
+}
+
+.iconButton:hover {
+  background-color: white;
+}
